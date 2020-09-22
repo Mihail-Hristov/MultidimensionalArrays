@@ -61,33 +61,32 @@ public class FindTheRealQueen {
             }
         }
 
-        int startRow = row + (Math.min( size - (size - row), size - (size - col)));
-        int startCol = row - (Math.min(size - col, size - row));
+        int difference1 = Math.min( (size - 1) - (size - row), (size - 1) - (size - col));
+        int startRow = row + difference1;
+        int startCol = col - difference1;
 
-        int first = startRow;
-        int temp = 0;
-
-        while (first >= 0 && temp < size) {
-            char current = table[first][temp];
-            int[] currentPosition = new int[] {first,temp};
+        while (startRow >= 0 && startCol < size) {
+            char current = table[startRow][startCol];
+            int[] currentPosition = new int[] {startRow,startCol};
             if (current == 'q' && !Arrays.equals(position, currentPosition)){
                 return false;
             }
-            first --;
-            temp ++;
+            startRow --;
+            startCol ++;
         }
 
-        int second = startCol;
-        int tmp = 0;
+        int difference2 = Math.min((size - 1) - ((size - 1) - row), (size - 1) - (size - col));
+        int secondStartRow = row - difference2;
+        int secondStarCol = col - difference2;
 
-        while (second < size && tmp >= 0) {
-            char current = table[second][tmp];
-            int[] currentPosition = new int[] {first,temp};
+        while (secondStartRow < size && secondStarCol < size) {
+            char current = table[secondStartRow][secondStarCol];
+            int[] currentPosition = new int[] {secondStartRow,secondStarCol};
             if (current == 'q' && !Arrays.equals(position, currentPosition)){
                 return false;
             }
-            second ++;
-            tmp --;
+            secondStartRow ++;
+            secondStarCol ++;
         }
 
         return true;
